@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../firebase';
+import LogoutButton from '../pages/LogoutButton';
 
 const Navbar = ({ user }) => {
   const handleLogout = async () => {
@@ -34,9 +35,11 @@ const Navbar = ({ user }) => {
                     <Link className="nav-link" to="/admin">Admin</Link>
                   </li>
                 )}
-                <li className="nav-item">
-                  <button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button>
-                </li>
+                <ul className="navbar-nav">
+            <li className="nav-item">
+              <LogoutButton /> {/* Render your logout button component */}
+            </li>
+          </ul>
               </>
             ) : (
               <>

@@ -10,8 +10,10 @@ function Home() {
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h1>Welcome to the Quiz App</h1>
       
-      <Link to="/quiz">
-        <button onClick={handleStartQuiz} style={{ padding: '10px 20px', fontSize: '1.2rem', marginTop: '20px' }}>Start Quiz</button>
+      <Link to="/login"> {/* Redirect to your login page */}
+        <button onClick={handleStartQuiz} style={{ padding: '10px 20px', fontSize: '1.2rem', marginTop: '20px' }}>
+          Start Quiz
+        </button>
       </Link>
     </div>
   );

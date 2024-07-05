@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { db, auth } from '../firebase'; // Import db and auth from Firebase
 import { collection, addDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const Quiz = () => {
+  const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState('');
@@ -42,6 +44,17 @@ const Quiz = () => {
     };
   }, [questionTimer]);
 
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const user = auth.currentUser;
+      if (!user) {
+        navigate('/login'); // Redirect to login if user is not authenticated
+      }
+    };
+
+    checkAuthStatus();
+  }, [navigate]);
+
   const handleStartQuiz = () => {
     setQuizStarted(true);
     startQuestionTimer();
@@ -71,21 +84,21 @@ const Quiz = () => {
 
     // Save test results to Firestore
     const user = auth.currentUser;
-  if (user) {
-    try {
-      await addDoc(collection(db, 'tests'), {
-        userId: user.uid,
-        date: new Date().toISOString(),
-        score: correctAnswers,
-        // Add other necessary details
-      });
-    } catch (error) {
-      console.error('Error saving test results:', error);
+    if (user) {
+      try {
+        await addDoc(collection(db, 'tests'), {
+          userId: user.uid,
+          date: new Date().toISOString(),
+          score: correctAnswers,
+          // Add other necessary details
+        });
+      } catch (error) {
+        console.error('Error saving test results:', error);
+      }
+    } else {
+      console.error('User not authenticated.');
     }
-  } else {
-    console.error('User not authenticated.');
-  }
-};
+  };
 
   const calculateResults = () => {
     let correctCount = 0;
