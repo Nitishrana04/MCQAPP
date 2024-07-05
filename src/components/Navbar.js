@@ -16,7 +16,7 @@ const Navbar = ({ user }) => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/">Quiz App</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -25,6 +25,9 @@ const Navbar = ({ user }) => {
               <>
                 <li className="nav-item">
                   <span className="nav-link">{user.email}</span>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/user">My Tests</Link>
                 </li>
                 {user.email === 'admin@gmail.com' && (
                   <li className="nav-item">
